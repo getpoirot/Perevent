@@ -10,8 +10,8 @@
     }
   ],
   "require": {
-    "poirot/std": "dev-devel"
-    , "poirot/ioc": "dev-devel"
+    "poirot/std": "dev-master"
+    , "poirot/ioc": "dev-master"
     
   },
   "autoload": {
