@@ -2,17 +2,21 @@
   "name": "poirot/perevent",
   "authors": [
     {
-      "name": "Mostafa Kamali",
-      "email": "sorena.551@gmail.com"
+      "name": "Payam Naderi",
+      "email": "naderi.payam@gmail.com"
     },
     {
-      "name": "Mostafa Kamali"
+      "name": "Mostafa Kamali",
+      "email": "sorena.551@gmail.com"
     }
   ],
   "require": {
     "poirot/std": "dev-devel"
     , "poirot/ioc": "dev-devel"
     
+  },
+  "suggest": {
+    "poirot/mod-driver_mongo": "Mongo Driver Used Within Poirot Projects."
   },
   "autoload": {
     "psr-4": {

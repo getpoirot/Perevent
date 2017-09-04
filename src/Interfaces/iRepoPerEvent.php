@@ -1,39 +1,38 @@
 <?php
 namespace Poirot\Perevent\Interfaces;
 
-use Poirot\Perevent\Entity\EntityPerevent;
+use Poirot\Perevent\Entity\PereventEntity;
+
 
 interface iRepoPerEvent
 {
-
-
-
     /**
      * Persist Entity Object
      *
-     * @param EntityPerevent $entityWallet
+     * @param PereventEntity $entityPerevent
      *
-     * @return mixed UID
+     * @return PereventEntity
      */
-
-    function insert(EntityPerevent $entityPerevent);
+    function insert(PereventEntity $entityPerevent);
 
     /**
-     * Find  Entity Match With Given uid
-     * @param mixed   $uid
+     * Find an Entity Match With Given uid
+     *
+     * !! consider expiration time
+     *
+     * @param mixed $uid
 
-     * @return \Traversable
+     * @return PereventEntity|null
      */
-
-    function find($uid);
+    function findOneByUID($uid);
 
     /**
-     * delete  all Entities Match With Given uid
-     * @param array   $uid
+     * Delete an Entities Match With Given uid
+     *
+     * @param mixed $uid
 
-     * @return mixed UID
+     * @return void
      */
-
-    function delete($uid);
+    function deleteOneByUID($uid);
 
 }
