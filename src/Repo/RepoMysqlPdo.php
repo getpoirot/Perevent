@@ -102,19 +102,20 @@ class RepoMysqlPdo implements iRepoPerEvent
 
     /**
      * Find  Entity Match With Given uid
-     * @param array   $uid
+     * @param mixed   $uid
 
      * @return \Traversable
      */
 
     function find($uid)
     {
+
         $query = 'SELECT   *
           FROM        '.$this->table.'
-           JOIN  perevents_args
-          ON      perevents_args.perevent_id = perevents.perevent_id
           WHERE uid = :uid'
         ;
+
+
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':uid', $uid, \PDO::PARAM_STR);
@@ -124,8 +125,24 @@ class RepoMysqlPdo implements iRepoPerEvent
         $stmt->setFetchMode(\PDO::FETCH_ASSOC);
         if ( false === $result = $stmt->fetch() )
             return 0;
+        $queryargs = 'SELECT   *
+          FROM        perevents_args
+          WHERE perevent_id = :perevent_id'
+        ;
+        $stmt = $this->conn->prepare($queryargs);
+        $stmt->bindParam(':perevent_id', $result['perevent_id'], \PDO::PARAM_STR);
 
-       return json_encode($result);
+
+        $stmt->execute();
+        $stmt->setFetchMode(\PDO::FETCH_ASSOC);
+        if ( false === $args = $stmt->fetchAll() )
+            return  $args =[];
+
+
+        $result['args']=$args;
+        kd($result);
+
+       return $result;
 
     }
 

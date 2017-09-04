@@ -20,7 +20,7 @@ interface iRepoPerEvent
 
     /**
      * Find  Entity Match With Given uid
-     * @param array   $uid
+     * @param mixed   $uid
 
      * @return \Traversable
      */
