@@ -24,11 +24,12 @@ class ManagerOfPerevents
      * Get EventCode(uid) and Execute related callable
      *
      * @param mixed $uid
+     * @param array $args Override arguments
      *
      * @return mixed
      * @throws \Exception
      */
-    function fireEvent($uid)
+    function fireEvent($uid, array $args = [])
     {
         $entity = $this->repo->findOneByUID($uid);
         if (! $entity )
@@ -42,9 +43,12 @@ class ManagerOfPerevents
                 , $command
             ));
 
-        $callable = $this->plugins()->get($command);
-        if ( $entity->getArgs() )
-            $callable = \Poirot\Std\Invokable\resolveCallableWithArgs($callable, $entity->getArgs());
+        $callable  = $this->plugins()->get($command);
+        $arguments = $entity->getArgs();
+
+        $arguments = ($args) ? array_merge($args, $arguments) : $arguments;
+        if (! empty($arguments) )
+            $callable = \Poirot\Std\Invokable\resolveCallableWithArgs($callable, $arguments);
 
 
         return call_user_func($callable);

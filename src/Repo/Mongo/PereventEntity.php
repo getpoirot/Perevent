@@ -105,4 +105,21 @@ class PereventEntity
     {
         return parent::getDatetimeExpiration();
     }
+
+
+    // ...
+
+    /**
+     * @inheritdoc
+     */
+    function bsonUnserialize(array $data)
+    {
+        if (isset($data['args'])) {
+            $args = \Poirot\Std\toArrayObject($data['args']);
+            $data['args'] = $args;
+        }
+
+        $this->import($data);
+    }
+
 }
