@@ -36,7 +36,7 @@ class RepoMysqlPdo
      */
     function insert(PereventEntity $entityPerevent)
     {
-        $uid          = $entityPerevent->getUid();
+        $uid          = $entityPerevent->getCmdHash();
         $args         = $entityPerevent->getArgs();
         $executeMap   = $entityPerevent->getCommand();
         $createdAt    = $entityPerevent->getDatetimeCreated()->format('Y-m-d H:i:s');
@@ -103,7 +103,37 @@ class RepoMysqlPdo
      */
     function findOneByUID($uid)
     {
-        // TODO Implement this
+
+        $query = 'SELECT *
+              FROM perevents
+              LEFT JOIN perevents_args ON perevents_args.perevent_id=perevents.perevent_id
+              WHERE uid = :uid'
+        ;
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':uid', $uid);
+        $stmt->execute();
+        $result= $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+
+        if ($result===[])
+            return null;
+
+
+        $args=array();
+        foreach ($result as $item)
+        {
+           $args[$item['key']]=$item['value'];
+        }
+
+        $pereventEntity = new PereventEntity();
+        $pereventEntity->setCmdHash($result[0]['uid']);
+        $pereventEntity->setCommand($result[0]['exec_map']);
+        $pereventEntity->setArgs($args);
+        $pereventEntity->setDatetimeExpiration($result[0]['expaired_at']);
+        $pereventEntity->setDatetimeCreated($result[0]['created_at']);
+
+
+        return $pereventEntity;
     }
 
     /**
@@ -115,6 +145,12 @@ class RepoMysqlPdo
      */
     function deleteOneByUID($uid)
     {
-        // TODO Implement this
+        $query = 'DELETE FROM '.$this->table.'
+                  WHERE uid = :uid'
+        ;
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':uid', $uid);
+        $stmt->execute();
+
     }
 }

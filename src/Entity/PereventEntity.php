@@ -7,7 +7,7 @@ use Poirot\Std\Struct\aDataOptions;
 class PereventEntity
     extends aDataOptions
 {
-    protected $uid;
+    protected $cmdHash;
     protected $command;
     protected $arg = [];
     protected $datetimeExpiration;
@@ -17,13 +17,13 @@ class PereventEntity
     /**
      * Set unique identifier of an event
      *
-     * @param mixed $uid
+     * @param mixed $cmdHash
      *
      * @return $this
      */
-    function setUid($uid)
+    function setCmdHash($cmdHash)
     {
-        $this->uid = $uid;
+        $this->cmdHash = $cmdHash;
         return $this;
     }
 
@@ -32,9 +32,9 @@ class PereventEntity
      *
      * @return mixed
      */
-    function getUid()
+    function getCmdHash()
     {
-        return $this->uid;
+        return $this->cmdHash;
     }
 
     /**

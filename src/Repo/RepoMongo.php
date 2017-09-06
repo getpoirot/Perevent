@@ -61,7 +61,7 @@ class RepoMongo
     {
         $pEntity = new Mongo\PereventEntity;
         $pEntity
-            ->setUid( $entityPerevent->getUid() )
+            ->setCmdHash( $entityPerevent->getCmdHash() )
             ->setCommand( $entityPerevent->getCommand() )
             ->setArgs( $entityPerevent->getArgs() )
             ->setDatetimeExpiration( $entityPerevent->getDatetimeExpiration() )
@@ -72,7 +72,7 @@ class RepoMongo
 
         $rEntity = new PereventEntity;
         $rEntity
-            ->setUid( $entityPerevent->getUid() )
+            ->setCmdHash( $entityPerevent->getCmdHash() )
             ->setCommand( $entityPerevent->getCommand() )
             ->setArgs( $entityPerevent->getArgs() )
             ->setDatetimeExpiration( $entityPerevent->getDatetimeExpiration() )
@@ -109,7 +109,7 @@ class RepoMongo
 
         $rEntity = new PereventEntity;
         $rEntity
-            ->setUid( $e->getUid() )
+            ->setCmdHash( $e->getCmdHash() )
             ->setCommand( $e->getCommand() )
             ->setArgs( $e->getArgs() )
             ->setDatetimeExpiration( $e->getDatetimeExpiration() )
