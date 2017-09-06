@@ -1,13 +1,13 @@
 <?php
 namespace Poirot\Perevent\Repo;
 
-
 use MongoDB\BSON\ObjectID;
 use Poirot\Perevent\Interfaces\iRepoPerEvent;
 use Poirot\Perevent\Entity\PereventEntity;
 
 use Poirot\Perevent\Repo\Mongo;
 use Module\MongoDriver\Model\Repository\aRepository;
+
 
 /*
  * Predefined Mongo Indexes
@@ -91,14 +91,14 @@ class RepoMongo
 
      * @return PereventEntity|null
      */
-    function findOneByUID($uid)
+    function findOneByCmdHash($uid)
     {
         // TODO Consider Datetime Expiration
 
         /** @var Mongo\PereventEntity $e */
         $e = $this->_query()->findOne(
             [
-                'uid' => $uid
+                'cmd_hash' => $uid
             ]
         );
 
@@ -130,7 +130,7 @@ class RepoMongo
     {
         $this->_query()->deleteOne(
             [
-                'uid' => $uid
+                'cmd_hash' => $uid
             ]
         );
     }

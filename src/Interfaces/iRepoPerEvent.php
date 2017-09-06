@@ -24,7 +24,7 @@ interface iRepoPerEvent
 
      * @return PereventEntity|null
      */
-    function findOneByUID($uid);
+    function findOneByCmdHash($uid);
 
     /**
      * Delete an Entities Match With Given uid

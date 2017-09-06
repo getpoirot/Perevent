@@ -101,7 +101,7 @@ class RepoMysqlPdo
 
      * @return PereventEntity|null
      */
-    function findOneByUID($uid)
+    function findOneByCmdHash($uid)
     {
 
         $query = 'SELECT *
