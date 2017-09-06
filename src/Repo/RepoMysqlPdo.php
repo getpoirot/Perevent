@@ -36,7 +36,7 @@ class RepoMysqlPdo
      */
     function insert(PereventEntity $entityPerevent)
     {
-        $uid          = $entityPerevent->getUid();
+        $uid          = $entityPerevent->getCmdHash();
         $args         = $entityPerevent->getArgs();
         $executeMap   = $entityPerevent->getCommand();
         $createdAt    = $entityPerevent->getDatetimeCreated()->format('Y-m-d H:i:s');
@@ -101,7 +101,7 @@ class RepoMysqlPdo
 
      * @return PereventEntity|null
      */
-    function findOneByUID($uid)
+    function findOneByCmdHash($uid)
     {
         // TODO Implement this
     }

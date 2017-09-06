@@ -31,7 +31,7 @@ class ManagerOfPerevents
      */
     function fireEvent($uid, array $args = [])
     {
-        $entity = $this->repo->findOneByUID($uid);
+        $entity = $this->repo->findOneByCmdHash($uid);
         if (! $entity )
             // Do Nothing; Entity Not Found.
             return null;
