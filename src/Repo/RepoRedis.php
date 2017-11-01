@@ -1,29 +1,27 @@
 <?php
 namespace Poirot\Perevent\Repo;
 
-use MongoDB\BSON\ObjectID;
 use Poirot\Perevent\Interfaces\iRepoPerEvent;
 use Poirot\Perevent\Entity\PereventEntity;
-
-use Poirot\Perevent\Repo\Mongo;
 use Poirot\Storage\Interchange\SerializeInterchange;
+
 use Predis;
 
 
 class RepoRedis
     implements iRepoPerEvent
 {
-
     const PREFIX = 'perevent.';
+
 
     /** @var  Predis\Client */
     private $client;
-
     /** @var SerializeInterchange */
     private $_interchangable;
 
+
     /**
-     * Initialize Object
+     * Construct
      *
      * @param Predis\Client $client
      */
@@ -33,6 +31,7 @@ class RepoRedis
 
         $this->_interchangable = new SerializeInterchange;
     }
+
 
     /**
      * Persist Entity Object
@@ -75,7 +74,6 @@ class RepoRedis
      */
     function findOneByCmdHash($uid)
     {
-
         $result = $this->client->get(self::PREFIX.$uid);
 
         if (! $result)

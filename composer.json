@@ -17,6 +17,7 @@
   },
   "suggest": {
     "poirot/mod-driver_mongo": "Mongo Driver Used Within Poirot Projects."
+    , "predis/predis": "Redis Implementation For Commands."
   },
   "autoload": {
     "psr-4": {
