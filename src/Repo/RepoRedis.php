@@ -12,7 +12,6 @@ class RepoRedis
 {
     const PREFIX = 'perevent.';
 
-
     /** @var  Predis\Client */
     private $client;
     /** @var SerializeInterchange */
