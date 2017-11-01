@@ -3,6 +3,7 @@ namespace Poirot\Perevent\Interfaces\Features;
 
 use Poirot\Perevent\Interfaces\iRepoPerEvent;
 
+
 interface iRepositoryAware
 {
     /**

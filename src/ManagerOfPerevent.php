@@ -10,7 +10,7 @@ use Poirot\Std\aConfigurable;
 use Poirot\Std\Exceptions\exImmutable;
 
 
-class ManagerOfPerevents
+class ManagerOfPerevent
     extends aConfigurable
     implements iManagerOfPerevents
 {
