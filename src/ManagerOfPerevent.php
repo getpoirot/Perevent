@@ -2,6 +2,7 @@
 namespace Poirot\Perevent;
 
 use Poirot\Ioc\Container\BuildContainer;
+use Poirot\Perevent\Entity\PereventEntity;
 use Poirot\Perevent\Interfaces\Features\iRepositoryAware;
 use Poirot\Perevent\Interfaces\iManagerOfPerevents;
 use Poirot\Perevent\Interfaces\iRepoPerEvent;
@@ -53,6 +54,29 @@ class ManagerOfPerevent
 
         return call_user_func($callable);
     }
+
+    /**
+     * Persist Entity Object
+     *
+     * @param PereventEntity $entityPerevent
+     *
+     * @return PereventEntity
+     */
+    function insert(PereventEntity $entityPerevent)
+    {
+        return $this->repo->insert($entityPerevent);
+    }
+
+    /**
+     * @return iRepoPerEvent
+     */
+    function repo()
+    {
+        return $this->repo;
+    }
+
+
+    // ..
 
     /**
      * Give Events Repository
