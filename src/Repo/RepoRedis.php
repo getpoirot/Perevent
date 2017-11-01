@@ -1,11 +1,10 @@
 <?php
 namespace Poirot\Perevent\Repo;
 
+use Predis;
 use Poirot\Perevent\Interfaces\iRepoPerEvent;
 use Poirot\Perevent\Entity\PereventEntity;
 use Poirot\Storage\Interchange\SerializeInterchange;
-
-use Predis;
 
 
 class RepoRedis
@@ -80,6 +79,8 @@ class RepoRedis
             return null;
 
         $e = $this->_interchangable->retrieveBackward($result);
+
+        // TODO check for expiration and if has expired return null
 
         $rEntity = new PereventEntity;
         $rEntity
