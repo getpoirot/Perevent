@@ -24,7 +24,7 @@ class RepoRedis
      *
      * @param Predis\Client $client
      */
-    protected function __construct(Predis\Client $client)
+    function __construct(Predis\Client $client)
     {
         $this->client = $client;
 
@@ -44,7 +44,7 @@ class RepoRedis
     {
         $uid          = $entityPerevent->getCmdHash();
         $expiredAt    = ($entityPerevent->getDatetimeExpiration())
-            ? strtotime($entityPerevent->getDatetimeExpiration()) - time()
+            ? $entityPerevent->getDatetimeExpiration()->getTimestamp() - time()
             : null;
 
         $this->client->set(
@@ -52,7 +52,7 @@ class RepoRedis
             $this->_interchangable->makeForward($entityPerevent)
         );
 
-        if(!is_null($expiredAt)) {
+        if (! is_null($expiredAt) ) {
             $this->client->expire(
                 self::PREFIX . $uid,
                 $expiredAt
@@ -73,22 +73,28 @@ class RepoRedis
      */
     function findOneByCmdHash($uid)
     {
-        $result = $this->client->get(self::PREFIX.$uid);
+        $result = $this->client->get( self::PREFIX.$uid );
 
         if (! $result)
             return null;
 
+        /** @var PereventEntity $e */
         $e = $this->_interchangable->retrieveBackward($result);
 
-        // TODO check for expiration and if has expired return null
+
+        // Check For Expiration
+        //
+        if (time() > $e->getDatetimeExpiration()->getTimestamp() )
+            return null;
+
 
         $rEntity = new PereventEntity;
         $rEntity
-            ->setCmdHash( $e['cmdhash'] )
-            ->setCommand( $e['command'] )
-            ->setArgs( $e['args'] )
-            ->setDatetimeExpiration( $e['datetimeexpiration'] )
-            ->setDatetimeCreated( $e['datetimecreated'] )
+            ->setCmdHash( $e->getCmdHash() )
+            ->setCommand( $e->getCommand() )
+            ->setArgs( $e->getArgs() )
+            ->setDatetimeExpiration( $e->getDatetimeExpiration() )
+            ->setDatetimeCreated( $e->getDatetimeCreated() )
         ;
 
         return $rEntity;
